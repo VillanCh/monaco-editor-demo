@@ -84,7 +84,7 @@ useEffect(() => {
       node.className = 'my-content-widget';
       node.style.background = 'rgba(255, 0, 0, 0.5)';
       node.style.padding = '12px';
-      node.style.width = '220px';
+      node.style.width = '320px';
       node.style.color = '#d4d4d4';
       node.style.borderRadius = '8px';
       node.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
@@ -106,30 +106,87 @@ useEffect(() => {
       arrow.style.transition = 'border-bottom-color 0.3s ease';
       node.appendChild(arrow);
       
-      const button = document.createElement('button');
-      button.innerText = '点击我';
-      button.style.padding = '6px 12px';
-      button.style.backgroundColor = 'rgba(0, 122, 204, 0.4)';
-      button.style.border = '1px solid rgba(255, 255, 255, 0.1)';
-      button.style.borderRadius = '4px';
-      button.style.color = 'white';
-      button.style.cursor = 'pointer';
-      button.style.transition = 'all 0.3s ease';
-      button.onclick = () => alert('你点击了气泡按钮!');
+      // 创建按钮容器
+      const buttonContainer = document.createElement('div');
+      buttonContainer.style.display = 'flex';
+      buttonContainer.style.gap = '4px';
+      buttonContainer.style.flexWrap = 'wrap';
+
+      // 创建气泡提示
+      const createTooltip = (message: string) => {
+        const tooltip = document.createElement('div');
+        tooltip.style.position = 'absolute';
+        tooltip.style.bottom = 'calc(100% + 8px)';
+        tooltip.style.left = '50%';
+        tooltip.style.transform = 'translateX(-50%)';
+        tooltip.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        tooltip.style.color = 'white';
+        tooltip.style.padding = '4px 8px';
+        tooltip.style.borderRadius = '4px';
+        tooltip.style.fontSize = '12px';
+        tooltip.style.whiteSpace = 'nowrap';
+        tooltip.style.opacity = '0';
+        tooltip.style.transition = 'opacity 0.3s';
+        tooltip.textContent = message;
+        return tooltip;
+      };
+
+      const createButton = (text: string) => {
+        const buttonWrapper = document.createElement('div');
+        buttonWrapper.style.position = 'relative';
+        
+        const button = document.createElement('button');
+        button.innerText = text;
+        button.style.padding = '4px 8px';
+        button.style.backgroundColor = 'rgba(0, 122, 204, 0.4)';
+        button.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+        button.style.borderRadius = '4px';
+        button.style.color = 'white';
+        button.style.cursor = 'pointer';
+        button.style.transition = 'all 0.3s ease';
+        button.style.fontSize = '11px';
+        
+        const tooltip = createTooltip(`${text}成功`);
+        buttonWrapper.appendChild(button);
+        buttonWrapper.appendChild(tooltip);
+
+        button.addEventListener('mouseenter', () => {
+          button.style.backgroundColor = 'rgba(0, 122, 204, 0.6)';
+        });
+        button.addEventListener('mouseleave', () => {
+          button.style.backgroundColor = 'rgba(0, 122, 204, 0.4)';
+        });
+        button.addEventListener('click', () => {
+          tooltip.style.opacity = '1';
+          setTimeout(() => {
+            tooltip.style.opacity = '0';
+          }, 3000);
+        });
+
+        return buttonWrapper;
+      };
+
+      const detailsButton = createButton('查看详情');
+      const prevButton = createButton('上一个');
+      const nextButton = createButton('下一个');
+      const dataFlowButton = createButton('数据流图');
+
+      buttonContainer.appendChild(detailsButton);
+      buttonContainer.appendChild(prevButton);
+      buttonContainer.appendChild(nextButton);
+      buttonContainer.appendChild(dataFlowButton);
 
       node.innerHTML = '<div style="margin-bottom:10px">这里的代码有点问题</div>';
-      node.appendChild(button);
+      node.appendChild(buttonContainer);
 
       node.addEventListener('mouseenter', () => {
         node.style.background = 'rgba(255, 0, 0, 0.7)';
         arrow.style.borderBottomColor = 'rgba(255, 0, 0, 0.7)';
-        button.style.backgroundColor = 'rgba(0, 122, 204, 0.6)';
       });
 
       node.addEventListener('mouseleave', () => {
         node.style.background = 'rgba(255, 0, 0, 0.5)';
         arrow.style.borderBottomColor = 'rgba(255, 0, 0, 0.5)';
-        button.style.backgroundColor = 'rgba(0, 122, 204, 0.4)';
       });
 
       return node;
