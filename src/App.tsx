@@ -50,14 +50,13 @@ useEffect(() => {
 
   // 创建多个装饰器示例
   const decorations = editor.createDecorationsCollection([
-    // {
-    //   range: new monaco.Range(3, 1, 3, 11111111),
-    //   options: {
-    //     isWholeLine: true,
-    //     className: 'error-line-decoration',
-    //     afterContentClassName: 'my-block-decoration',
-    //   }
-    // },
+    {
+      range: new monaco.Range(3, 1, 3, 11111111),
+      options: {
+        isWholeLine: true,
+        className: 'error-line-decoration',
+      }
+    },
     // {
     //   range: new monaco.Range(5, 1, 5, 1),
     //   options: {

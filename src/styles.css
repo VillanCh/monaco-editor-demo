@@ -14,7 +14,7 @@
 }
 
 .error-line-decoration {
-  background-color: rgba(255, 0, 0, 0.1);
+  background-color: rgba(255, 0, 0, 0.3);
 }
 
 .warning-line-decoration {
@@ -65,9 +65,10 @@
   line-height: 1.5;
   border-left: 3px solid #007acc;
   margin: 4px 0;
+  background: rgba(255, 0, 0, 0.1);
 }
 
 /* 添加悬停效果 */
 .my-content-widget:hover {
-  background: #363636 !important;
+  background: rgba(255, 0, 0, 0.7) !important;
 }
